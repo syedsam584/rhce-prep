@@ -1,0 +1,13 @@
+---
+- name: copying files 
+  gather_facts: no
+  hosts: "*" 
+  tasks: 
+   - name: copy filees in servers 
+     copy:
+       src: /root/automation/file
+       dest: /tmp
+       owner: sohail
+       group: sohail
+       mode: 0777
+

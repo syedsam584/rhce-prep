@@ -1,0 +1,23 @@
+---
+- name:
+  hosts: all
+  gather_facts: no
+  
+  tasks: 
+    - name: Create a Directory /opt/tomcat 
+      file: 
+        path: /opt/tomcat
+        state: directory
+        owner: root
+        group: root
+        mode: 0777
+    - name: Download Tomcat using URL 
+      get_url: 
+           url: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.82/bin/apache-tomcat-8.5.82.tar.gz 
+           dest: /opt/tomcat 
+           mode: 0755
+           group: root
+           owner: root
+
+
+

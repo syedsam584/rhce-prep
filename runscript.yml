@@ -1,0 +1,17 @@
+---
+- name: run script
+  gather_facts: no
+  hosts: all
+   
+  tasks: 
+    - name: copy script 
+      copy:
+        src: /home/sohail/shell.sh
+        dest: /home/sohail/
+        mode: 0777
+
+    - name: running script
+      shell: "/home/sohail/shell.sh" 
+
+
+

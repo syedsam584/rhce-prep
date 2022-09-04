@@ -1,0 +1,16 @@
+---
+- name: create a cron job
+  hosts: all
+
+  tasks: 
+    - name: schedule cronjob
+      cron: 
+        name: this job is scheduled by ansible
+        minute: "45"
+        hour: "15" 
+        day: "*" 
+        month: "9"
+        weekday: "*"
+        user: root
+        job: "/home/sohail/shell.sh"
+

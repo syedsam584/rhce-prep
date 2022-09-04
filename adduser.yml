@@ -1,0 +1,12 @@
+---
+- name: creating user
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: creating new user
+      user: 
+        name: syed
+        home: /home/syed
+        shell: /bin/bash
+

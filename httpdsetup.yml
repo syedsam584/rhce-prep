@@ -1,0 +1,36 @@
+- name: 
+  gather_facts: no
+  hosts: all
+
+  tasks: 
+     - name: installing httpd
+       yum: 
+         name: httpd 
+         state: latest
+     
+     - name: version of httpd
+       command: rpm -q httpd 
+       register: name
+
+     - name: display version 
+       debug: msg="{{ name.stdout_lines }}"
+
+     - name: start apache 
+       service: 
+           name: httpd
+           state: started
+  
+     - name: open httpd port 80 in firewalld
+       firewalld: 
+          service: http
+          permanent: true 
+          state: enabled 
+
+
+     - name: restart firewalld service 
+       service: 
+          name: firewalld
+          state: reloaded 
+                
+
+...     

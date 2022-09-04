@@ -1,0 +1,44 @@
+---
+- name: Create and Remove file 
+  hosts: all
+  gather_facts: no
+  vars: 
+    msg1: thanks for my playbook and see you again
+
+  tasks: 
+  - name: create a directory 
+    file: 
+      path: /tmp/syed/
+      owner: sohail 
+      group: sohail 
+      mode: 0775
+      state: directory
+   
+  - name: Create a file in that dir
+    file: 
+         path: /tmp/syed/file1   
+         state: touch
+  
+  - name: add text to the file 
+    blockinfile: 
+           path: /tmp/syed/file1
+           block: this is the msg you will see at on of the playbook thanks for my playbook and see you again
+  
+  
+  - name: stat the new file1 
+    stat: 
+       path: /tmp/syed/file1
+    register: fs 
+
+    #  - name: print file info 
+    # debug: 
+    #  msg: file info {{ fs }}
+
+# - name: remove file 
+#    file: 
+#      path: /tmp/syed/file1
+#      state: absent 
+
+  - name: note
+    debug: 
+        msg: "{{ msg1 }}"

@@ -1,0 +1,11 @@
+---
+- name: changing permission 
+  hosts: all
+  
+  tasks: 
+  - name: change permiisions 
+    file: 
+     path:  /tmp/file
+     mode: a-wx
+   
+...
