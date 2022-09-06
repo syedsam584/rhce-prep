@@ -1,0 +1,16 @@
+---
+- name: loop concept 
+  gather_facts: false
+  hosts: all
+
+  tasks: 
+   - name: looping 
+     user: 
+       name: "{{ item }}"
+     loop:
+        - nehal
+        - minhaj 
+        - saniya
+        - miffu 
+        - ifzan 
+

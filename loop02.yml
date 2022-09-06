@@ -1,0 +1,18 @@
+---
+- name: looping 
+  gather_facts: false 
+  hosts: all
+  #  vars: 
+  #  users: [nehal, minhaj, saniya, miffu, ifzan] 
+
+  tasks: 
+  - name: create users 
+    user: 
+      name: '{{item}}'
+      state: absent  
+    with_items:
+         - nehal
+         - minhaj
+         - saniya
+         - miffu
+         - ifzan 

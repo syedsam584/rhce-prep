@@ -1,0 +1,5 @@
+- name: Install Time package
+  yum:
+   name: chrony
+   state: present
+

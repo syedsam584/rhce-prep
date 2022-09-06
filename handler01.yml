@@ -1,0 +1,35 @@
+---
+- name: testing handlers
+  gather_facts: false
+  hosts: all 
+  
+  tasks: 
+    - name: installing tree package
+      yum: 
+        name: "tree"
+        state: present
+      register: fs
+      notify: display status
+    
+  handlers: 
+    - name: display status
+      debug: 
+        msg: yes it is installed {{ fs }}   
+
+
+- hosts: all
+  gather_facts: false 
+  tasks: 
+    - name: install httpd 
+      yum:
+        name: httpd
+        state: present 
+      notify: start httpd
+     
+  handlers: 
+    - name: start httpd 
+      service: 
+         name: httpd 
+         state: started
+
+...
