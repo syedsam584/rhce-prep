@@ -1,7 +1,9 @@
 ---
 - name: check file status
   hosts: all
-  
+  gather_facts: false 
+  become: true
+  become_user: root
   tasks: 
    - name: checking file status
      stat: 
@@ -11,5 +13,21 @@
    - name: show result
      debug: 
            msg: file info {{ fs }}
+
+   - name: 
+     file: 
+       name: creating 
+       state: directory
+       group: sohail
+       owner: sohail 
+       mode: 0755
+     register: fs1
+
+   - name: checking directory
+     debug: 
+        msg: directory has been created {{fs1}}
+         
+
+
 
 
