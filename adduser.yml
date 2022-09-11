@@ -11,4 +11,10 @@
         name: syed
         home: /home/syed
         shell: /bin/bash
-
+    
+    - name: creating new user
+      user: 
+        name: sohail
+        home: /home/sohail
+        group: wheel 
+        shell: /bin/bash
