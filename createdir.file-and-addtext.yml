@@ -1,6 +1,8 @@
 ---
 - name: Create and Remove file 
   hosts: all
+  become: true
+  become_user: root
   gather_facts: no
   vars: 
     msg1: thanks for my playbook and see you again

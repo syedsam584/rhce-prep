@@ -2,8 +2,10 @@
 - name: Create and Remove file 
   hosts: all
   gather_facts: no
+  become: true
+  become_user: root 
   vars: 
-    msg1: thanks for my playbook and see you again
+    msg1: thanks for my playbook and see you again.
 
   tasks: 
   - name: create a directory 
