@@ -1,6 +1,6 @@
 ---
 - name: Create and Remove file 
-  hosts: all
+  hosts: 192.168.56.55
   gather_facts: no
   vars: 
     msg1: thanks for my playbook and see you again
