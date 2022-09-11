@@ -3,8 +3,8 @@
   hosts: all
   
   tasks:
-  - name: Change “syed” password
+  - name: Change “syedsam” password
     user:
-      name: syed
+      name: syedsam
       update_password: always
       password: "{{ newpassword|password_hash('sha512’) }}”
