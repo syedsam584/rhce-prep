@@ -1,12 +1,8 @@
 ---
 - name: Create and Remove file 
-<<<<<<< HEAD
   hosts: all
   become: true
   become_user: root
-=======
-  hosts: 192.168.56.55
->>>>>>> 680e354c6e5c65b511a7a38464753f9eac8f367e
   gather_facts: no
   vars: 
     msg1: thanks for my playbook and see you again

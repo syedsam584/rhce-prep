@@ -14,7 +14,7 @@
      debug: 
            msg: file info {{ fs }}
 
-   - name: 
+   - name: creating dir
      file: 
        name: creating 
        state: directory
@@ -26,6 +26,32 @@
    - name: checking directory
      debug: 
         msg: directory has been created {{fs1}}
+
+   - name: creating file in directory 
+     file:
+        name: newfile 
+        path: ~/creating/newfile
+        state: touch 
+     register: fs2
+
+   - name: creation has beeen updated.
+     debug: 
+        msg: file has been created {{ fs2 }}
+ 
+   - name: adding text in file.
+     blockinfile: 
+           path: newfile
+           block: this is the msg you will see at on of the playbook thanks for my playbook and see you again
+     register: fs3 
+     
+   - name: text has been added in file. 
+     debug: 
+        msg: text has added {{ fs3 }}
+    
+
+  
+    
+         
          
 
 
