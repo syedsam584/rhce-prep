@@ -1,0 +1,12 @@
+---
+- name: register playbook
+  hosts: all
+  tasks: 
+  - name: register
+    command: "hostname -s"
+    register: hostname_output
+
+
+  - name: show hostnames
+    debug:
+      var: "hostname_output.stdout"

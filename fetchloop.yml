@@ -1,0 +1,26 @@
+---
+- name: taking file from remote
+  hosts: all 
+  gather_facts: false
+  tasks:
+  - name: ensure a file exists
+    copy: 
+      dest: "/root/sam/{{ item }}"
+      content: "{{ ansible_host }}" 
+    loop:
+      - test_file1
+      - test_file2
+  
+  - name: using fetch madule
+    fetch:
+     src: "/root/sam/{{ item }}"
+     dest: "/root/{{ item }}" 
+     flat: yes  
+     remote_src: yes 
+    loop: 
+      - test_file1
+      - test_file2
+      - test_file3
+...
+
+

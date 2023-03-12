@@ -1,0 +1,12 @@
+---
+- name: rebooting server
+  hosts: all 
+  remote_user: root
+  gather_facts: false
+  tasks: 
+  - name: rebooting
+    reboot:
+      reboot_timeout: 1800
+      test_command: uptime
+    become: yes
+

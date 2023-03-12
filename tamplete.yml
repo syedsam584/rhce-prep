@@ -1,0 +1,10 @@
+---
+- name: testing templete module
+  hosts: all
+  gather_facts: false 
+  tasks: 
+    - name: adding text file
+      template: 
+            src: /root/test-projects/ansible-project/sampletamplete.j2
+            dest: /etc/motd
+      become: true 

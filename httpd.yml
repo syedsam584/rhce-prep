@@ -1,0 +1,28 @@
+---
+- name: httpd process
+  hosts: all 
+  gather_facts: false
+  vars:
+    name: sohail
+  become_user: true
+  tasks:
+  - name: http install
+    yum: 
+       name: httpd
+       state: latest
+    tags: 
+    - install   
+  - name: copying file
+    template:
+       src: /root/index.html
+       dest: /var/www/html/index.html
+    notify:
+    - start httpd service
+
+  handlers:
+  - name: start httpd service 
+    service: 
+         name: httpd
+         state: restarted  
+    tags:
+    - sohail

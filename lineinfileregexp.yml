@@ -1,0 +1,15 @@
+---
+- name: lineinfile to add line
+  hosts: all
+  tasks:
+  - name: adding lines
+    lineinfile:
+      path: "/root/sam.txt"
+      insertafter: "^lineinfile to add line"
+      line: "carrot"
+      state: present
+      create: yes
+
+
+
+

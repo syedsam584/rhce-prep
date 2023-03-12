@@ -1,0 +1,21 @@
+---
+- name: add a line in file
+  hosts: web
+  become: yes
+  become_user: root
+  tasks: 
+    - name: adding line
+      lineinfile: 
+              dest: /root/rocky 
+              insertbefore: "yeah whats up"
+              line: "{{ item }}" 
+              state: present 
+              backup: yes
+      with_items:
+           - Apples and pears
+           - Citrus – oranges, grapefruits, mandarins and limes.
+           - Stone fruit – nectarines, apricots, peaches and plums.
+           - Tropical and exotic – bananas and mangoes.
+           - Berries
+               
+...

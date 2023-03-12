@@ -1,0 +1,15 @@
+---
+- name: copy file to remote host
+  hosts: web
+  tasks: 
+   
+   - name: copy file to remote hosts
+     copy: 
+       src: /root/rocky.copy 
+       dest: $HOME/rocky.copy
+       remote_src: true 
+
+...   
+
+     
+ 

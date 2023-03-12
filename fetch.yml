@@ -1,0 +1,20 @@
+---
+- name: taking file from remote
+  hosts: all 
+  gather_facts: false
+  tasks:
+  - name: using fetch madule
+    fetch:
+     src: /root/sam/test.txt 
+     dest: /root/test.txt
+     flat: yes  
+     remote_src: yes 
+
+  - name: using fetch madule
+    fetch:
+     src: /root/sam/test01.txt
+     dest: /root/test01.txt
+     flat: yes
+     remote_src: yes
+
+...

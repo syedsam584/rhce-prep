@@ -1,13 +1,65 @@
 ---
-- name: looping 
-  gather_facts: false 
-  hosts: all
-  vars: 
-    users: [nehal, minhaj, saniya, miffu, ifzan] 
-
+- name: install multiple stuff
+  hosts: web
+  gather_facts: false
   tasks: 
-  - name: create users 
-    user: 
-      name: '{{item}}'
-      state: present  
-    with_items: '{{users}}'
+  - name: Creating group
+    group: 
+      name: "{{item}}"  
+      state: present 
+  #   gid: 9966     
+    with_items: 
+         - Office
+         - dev
+         - test-team
+
+  - name: multiple stuff
+    user:  
+     name: "{{item}}"
+     state: present
+     groups: Office,dev,test-team
+    loop:
+       - sarah
+       - abdul
+       - saniya
+       - john
+       - syed
+
+  - name: validating users
+    shell: "tail -5 /etc/passwd" 
+    register: displayusers 
+ 
+  - name: validating groups
+    shell: "tail -4 /etc/group"
+    register: displaygroups
+    ignore_errors: yes
+
+  - name: Displaying user 
+    debug:
+       msg: "{{ displayusers.stdout_lines }}" 
+
+  - name: Displaying groups 
+    debug:       
+       msg: "{{ displaygroups.stdout_lines }}"
+  
+  - name: find users info. 
+    shell: "id {{item}}"
+    register: displaying_info
+    loop:
+     - sarah
+     - abdul
+     - saniya
+     - john
+           
+  - name:  Displaying information of user
+    debug: 
+      var:  
+       displaying_info:
+          stdout_lines:
+            sarah: "{{ displaying_info.results[0].stdout_lines }}"
+            abdul: "{{ displaying_info.results[1].stdout_lines }}"
+            saniya: "{{ displaying_info.results[2].stdout_lines }}"
+            john: "{{ displaying_info.results[3].stdout_lines }}"
+            
+...    
+

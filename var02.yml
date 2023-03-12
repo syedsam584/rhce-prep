@@ -1,0 +1,9 @@
+---
+- name:
+  hosts: all
+  tasks:
+    - name: testing var for coming from host
+      debug: 
+         msg: "{{ ansible_user }}"
+   
+#ansible_user is from /etc/ansible/hosts       

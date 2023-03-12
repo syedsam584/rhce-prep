@@ -1,0 +1,14 @@
+---
+- name: testing handler
+  hosts: web
+  gather_facts: false
+  become: true
+  tasks: 
+  - name: check version of httpd
+    shell: "rpm -qa httpd"
+    register: validate_output
+
+  - name: print the version.
+    debug:
+      var: "validate_output.stdout"
+

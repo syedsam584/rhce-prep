@@ -1,0 +1,9 @@
+---
+- name: adding text line in file
+  hosts: all
+  tasks: 
+    - name: adding line in texts file
+      copy: 
+       dest: /root/rocky
+       content: "hello world!, hope you enjoy the day\n" 
+

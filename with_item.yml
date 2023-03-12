@@ -1,0 +1,14 @@
+---
+- name: playbook for with_items
+  hosts: web 
+  become: yes
+  gather_facts: false
+  tasks: 
+  - name: running for with item. 
+    copy: 
+      src: "{{item.source}}"
+      dest: "{{item.destination}}"
+      mode: "{{item.mode}}"
+    with_items: 
+    - {"source": "/root/index.html" , "destination": "/var/www/html/index.html" , "mode": "777"}
+    - {"source": "/root/test.txt" , "destination": "/root/test.txt" , "mode": "600"}

@@ -1,0 +1,12 @@
+---
+- name: copying files 
+  hosts: "*" 
+  tasks: 
+   - name: copy filees in servers 
+     copy: 
+       src: /root/hosts_motd
+       dest: $HOME/hosts_motd 
+       group: sohail007 
+       owner: sohail007 
+       mode: 0600
+...

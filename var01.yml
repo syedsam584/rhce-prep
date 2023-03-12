@@ -1,0 +1,24 @@
+---
+- name: example var
+  hosts: all
+  vars:
+    list: 
+      - apple
+      - ball
+      - cat 
+      - dog
+
+  tasks:
+    - name: var by list 
+      debug: 
+         msg: "{{ list }}"
+    
+    - name: var by order
+      debug:
+         msg: "{{ list.0 }}" 
+
+    - name: var by order
+      debug:
+         msg: "{{ list.1 }}"
+
+ 

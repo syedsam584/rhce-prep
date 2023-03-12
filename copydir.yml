@@ -1,0 +1,10 @@
+---
+- name: to copy directory
+  hosts: web 
+  tasks:  
+    - name: copy directory file
+      copy: 
+        src: /root/sam9966
+        dest: $HOME/
+  
+... 

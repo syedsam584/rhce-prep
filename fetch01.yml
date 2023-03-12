@@ -1,0 +1,17 @@
+---
+- name: taking file from remote
+  hosts: web 
+  gather_facts: false
+  tasks:
+  - name: ensure a file exists
+    file: 
+      path: "/root/sam/{{ ansible_host }}"
+      state: touch
+ 
+  - name: using fetch madule
+    fetch:
+     src: /root/sam/{{ ansible_host }} 
+     dest: /root/{{ ansible_host }}
+     flat: yes  
+     remote_src: yes 
+...

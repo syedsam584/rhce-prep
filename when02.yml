@@ -1,0 +1,7 @@
+---
+- name: when  
+  hosts: all
+  tasks: 
+  - name: when condition
+    command: "hostname -s"
+    when: ansible_distribution == "Redhat" and ansible_distribution_major_version == "8"

@@ -1,0 +1,116 @@
+---
+- name: Setting up NFS server
+  hosts: localhost
+  gather_facts: false
+  become: true
+  vars: 
+  - disk_name: /dev/nvme0n2p2
+  - dir_path: /root/trynfs
+
+  tasks:
+  
+  - name: first installing packages
+    dnf: 
+     name: nfs-utils 
+     state: present
+    ignore_errors: true
+
+  - name: Creating new file system for NFS mount. 
+    filesystem: 
+       dev: "{{disk_name}}"
+       fstype: ext4
+       force: yes
+    ignore_errors: true
+
+  - name: Create Directory
+    file: 
+       path: "{{dir_path}}"
+       state: directory
+       mode: "0777"
+
+  - name: mount partition
+    mount:
+       path: "{{dir_path}}"
+       src: "{{disk_name}}"
+       fstype: ext4
+       state: mounted 
+
+  - name: Create entry at /etc/fstab for file system.
+    command: |
+        echo "{{disk_name}} {{dir_path}} xfs defaults 0 0" >> /etc/fstab
+
+  - name: Configure exports
+    lineinfile:
+        path: /etc/exports
+        line: "{{dir_path}} 192.168.48.0/24(rw,sync)"
+   
+  - name: nfs service restart
+    service: 
+         name: nfs-server.service
+         state: restarted
+         enabled: yes
+         
+
+  - name: Allow nfs through firewall
+    command: "{{item}}"
+    loop:   
+      - firewall-cmd --permanent --add-service=nfs
+      - firewall-cmd --permanent --add-service=rpc-bind
+      - firewall-cmd --permanent --add-service=mountd
+      - firewall-cmd --reload
+    tags:
+    - firewalld
+
+
+#Clientside tasks.
+
+- hosts: web
+  gather_facts: false
+  become_user: true
+  tasks: 
+     
+    - name: config nfs at client side  
+      dnf:
+        name: nfs-utils
+        state: present
+      ignore_errors: true
+
+    - name: nfs service restart
+      service:
+           name: nfs-server.service
+           state: restarted
+           enabled: yes
+
+    - name: Allow nfs through firewall
+      command: "{{item}}"
+      loop:
+        - firewall-cmd --permanent --add-service=nfs
+        - firewall-cmd --reload
+
+    - name: validation export from client side.
+      command: "showmount -e 192.168.48.138"
+      register: exportoutput
+
+    - name: exportoutput
+      debug:
+         var: exportoutput.stdout_lines
+
+    - name: Create Directory
+      file:
+        path: "/root/clinewnfs"
+        state: directory
+        mode: "0777"
+
+    - name: mounting nfs to client nfs
+      command: "mount -t nfs 192.168.48.138:/root/trynfs /root/syednfs"
+      tags:
+      - t1
+
+    - name: Create entry at /etc/fstab for file system
+      lineinfile:
+        path: /etc/fstab
+        line: "192.168.48.138:/root/trynfs /root/clinewnfs nfs default 0 0" 
+        state: present 
+      tags:
+      - t2
+...     

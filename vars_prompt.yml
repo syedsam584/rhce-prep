@@ -1,0 +1,39 @@
+---
+- name: vars prompt
+  hosts: all
+  vars_prompt: 
+
+      - name: myname
+        prompt: "what is your name ?"
+        private: no 
+      
+      - name: password
+        prompt: "what is the password ?" 
+        private: yes
+      
+      - name: age 
+        prompt: "what is my age ?"   
+        private: no 
+     
+      - name: call
+        prompt: "what is your call number ?"
+         
+
+  tasks: 
+    - name: vars prompt
+      debug: 
+         msg: "logging as {{ myname }}" 
+    
+    - name: password
+      debug: 
+         msg: "{{ password }}"   
+     
+    - name: age 
+      debug:
+         msg: "{{ age }}"
+
+    - name: call
+      debug: 
+          msg: "my call number is {{ call }}" 
+ 
+...  

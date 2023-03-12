@@ -1,0 +1,13 @@
+---
+- name: testing varibles
+  hosts: web
+  become: true
+  gather_facts: false
+  vars: 
+     name: syed
+  tasks: 
+  
+  - name: print varible 
+    debug: 
+      msg: "varible value {{name}}"
+

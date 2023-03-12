@@ -1,0 +1,28 @@
+--- 
+- name: testing Host_Var
+  hosts: ClientVM01
+  gather_facts: false
+  become: true
+  become_user: root
+  tasks: 
+    - name: testing Host_Var
+      user: 
+       name: "{{name}}" 
+       comment: "This is DevOps user"
+       shell: /bin/ksh
+       groups: Office
+      
+    - name: validation user
+      shell: "id {{name}}"
+      register: new_user
+    
+    - name: printing value
+      debug: 
+<<<<<<< HEAD
+        var: new_user.stdout_lines
+
+=======
+          msg: "newuser.stdout"
+    
+>>>>>>> 9dc79a15e2f1cd6ac5a508cebcb480808f8fe9ba
+...

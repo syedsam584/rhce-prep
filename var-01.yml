@@ -1,0 +1,18 @@
+---
+- name: test var for learning. 
+  hosts: web
+  vars: 
+    key: uname
+  tasks:
+   
+    - name: testing
+      debug: 
+         msg: this is the testing "{{ key }}"
+          
+    - name: command var
+      command: "uptime"
+      register: check_uptime
+
+    - debug: 
+        msg: "{{ check_uptime.stdout }}"   
+

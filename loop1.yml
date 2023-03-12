@@ -1,0 +1,9 @@
+---
+- name: instsall multiple stuff
+  hosts: web
+  tasks: 
+  - name: multiple stuff
+    yum: 
+     name: ['zip','unzip','tree','httpd'] 
+     state: present
+ 

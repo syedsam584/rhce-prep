@@ -1,0 +1,13 @@
+---
+- name: set_fact
+  hosts: all
+  tasks: 
+  - name: getting fact
+    set_fact: 
+      our_fact: ansible rocks!
+  
+  - name: show custom fact
+    debug: 
+      msg: "{{ our_fact }}"
+
+...

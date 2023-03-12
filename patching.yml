@@ -1,0 +1,50 @@
+---
+- name: 
+  hosts: web 
+  gather_facts: false
+  become: true
+  become_user: root
+  tasks: 
+    
+    - name: prestep 01
+      command: yum clean all
+   
+    - name: prestep 02
+      command: yum clean metadata
+    
+    - name: prestep 03
+      command: rm-rf /var/cache/yum/*
+      command: subscription-manager repos --list
+      command: yum repolist
+ 
+    - name: patching servers
+      yum:
+        name: '*'
+        state: latest
+        update_cache: yes 
+ 
+    - debug: 
+        msg: "servers have been patched" 
+
+- hosts: all
+  gather_facts: false
+  become: web 
+  become_user: root
+  tasks:
+
+    - name: rebooting severs
+      reboot:
+       reboot_timeout: 1800 
+       test_command: uptime
+      tags: reboot
+      become: yes    
+
+    - name: WHO AM I 
+      command: whoami
+      register: myname  
+       
+    - name: display WHO AM I
+      debug: msg="{{ myname.stdout_lines }}"
+
+
+...

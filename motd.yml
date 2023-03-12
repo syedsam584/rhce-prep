@@ -1,0 +1,13 @@
+---
+- name: playbook massage of the day
+  hosts: all 
+  become: true
+  become_user: root
+  gather_facts: false
+  tasks: 
+   - name: copy to massage of the day 
+     copy:
+      src: /Users/sohailsyed/hosts_motd
+      dest: /etc/motd
+
+              

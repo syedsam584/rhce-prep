@@ -1,0 +1,21 @@
+---
+- name: type 2 listing varible. 
+  hosts: web
+  vars: 
+    student:
+          - sohail
+          - sarah 
+          - saniya
+
+  tasks: 
+     
+      - name: listing 
+        debug: 
+           msg: "these are list of student {{student}}" 
+
+
+        
+       
+
+
+ 

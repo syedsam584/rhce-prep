@@ -1,0 +1,20 @@
+---
+- name: Playbook fo creating User
+  hosts: all
+  gather_facts: no
+  vars_prompt:
+      - name: myuser
+        prompt: "Enter user name to create ?"
+        private: no
+  tasks:
+    - name: creating user
+      user:
+       name: "{{ myuser }}"
+
+    - name: show User
+      command: grep "{{ myuser }}" /etc/passwd
+      register: myuser
+
+    - name: displaying User
+      debug:
+         msg: "{{ myuser.stdout }}"

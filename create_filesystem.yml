@@ -1,0 +1,22 @@
+---
+- name: Create a file system
+  hosts: localhost  
+  become: yes
+  tasks:
+    - name: Create the directory
+      file:
+        path: /new/RHELFS 
+        state: directory
+
+    - name: Create the file system
+      command: |
+        echo "/dev/nvme0n2p2 /new/RHELFS xfs defaults 0 0" >> /etc/fstab
+
+    - name: Mount the file system
+      mount:
+        path: /new/RHELFS
+        src: /dev/nvme0n2p2
+        fstype: xfs 
+        state: mounted
+
+...    

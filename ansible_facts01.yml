@@ -1,0 +1,9 @@
+---
+- name: retive facts
+  hosts: localhost
+  gather_facts: True
+  tasks: 
+     
+      - name: gathering ansible facts
+        debug: 
+           msg: "{{ ansible_facts.all_ipv4_addresses[0] }}" 

@@ -1,0 +1,25 @@
+---
+- name: when condition
+  hosts: all
+  vars:
+    user: 
+       - name: p1  
+         comment: periorty 1  
+         required: true          
+
+       - name: p2
+         comment: periorty 2
+         required: true
+ 
+       - name: p3
+         comment: periorty 3  
+         required: true        
+
+  tasks: 
+    - name: install packages
+      user: 
+        name: "{{ item.name }}"
+        comment: "{{item.comment}}"
+        state: present 
+      when: item.required == true
+      loop: "{{ user }}"

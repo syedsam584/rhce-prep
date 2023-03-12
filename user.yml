@@ -1,0 +1,21 @@
+---
+- name: Creating user
+  hosts: all 
+  gather_facts: false
+  become: true
+  become_user: root
+  tasks:
+    - name: creating user
+      user: 
+       name: sohail007
+       shell: /sbin/nologin
+       comment: "this is sohail account"
+       uid: "1024"
+      
+    - name: group  
+      group: 
+        name: "sohail007"
+        gid: "1024" 
+         
+      
+...

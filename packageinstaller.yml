@@ -1,0 +1,23 @@
+---
+- name: instaling package
+  hosts: all
+  become: true
+  become_user: root
+  gather_facts: false
+  vars_prompt: 
+       - name: package
+         prompt: "what package would you like to install ?"
+         private: false
+  tasks: 
+   - name: Installing package 
+     yum: 
+      name: "{{ package }}" 
+      state: latest 
+      update_cache: yes
+     notify: package update 
+  
+  handlers:       
+    - name: package update
+      debug:
+         msg: "{{ package }} package has been installed"     
+      

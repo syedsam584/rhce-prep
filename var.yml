@@ -1,0 +1,12 @@
+---
+- name: test var playbook
+  hosts: all
+  vars:
+    disk: sample var
+  tasks: 
+    - name: var playbook
+      debug: 
+          msg: "{{ disk }}" 
+  
+  
+  

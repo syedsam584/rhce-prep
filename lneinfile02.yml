@@ -1,0 +1,14 @@
+---
+- name: lineinfile to add line
+  hosts: all
+  tasks:
+  - name: adding lines
+    lineinfile:
+      path: "/root/sam.txt"
+      line: "what does this playbook do"
+      state: present
+      create: yes
+
+
+
+

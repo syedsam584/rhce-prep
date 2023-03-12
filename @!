@@ -3,12 +3,12 @@
   hosts: web
   tasks: 
   - name: multiple stuff
-    yum: 
+    user:  
      name: "{{item}}"
-     state: present
-    with_items:
-        - zip
-        - unzip
-        - tree
-        - httpd
+     state: absent 
+    loop:
+       - zip
+       - unzip
+       - tree
+       - httpd
  

@@ -1,0 +1,36 @@
+---
+- name: creating new partitions.
+  hosts: web 
+  gather_facts: false
+  tasks: 
+  - name: create 2GB partition
+    parted:
+      device: /dev/sda
+      number: 1
+      state: present
+      part_start: 2MiB
+      part_end: 2GiB
+
+  - name: Format the Disk
+    filesystem: 
+       dev: /dev/sda5
+       fstype: ext4
+   
+  - name: Create Directory
+    file: 
+       path: /mnt/sda5
+       state: directory
+       mode: "0777"
+
+  - name: mount partition
+    mount:
+       path: /mnt/sda5
+       src: /dev/sda5
+       fstype: ext4
+       state: mounted 
+
+... 
+   
+
+
+

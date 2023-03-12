@@ -1,0 +1,16 @@
+---
+- name: validation for showmount
+  hosts: web
+  become: true
+  gather_facts: false
+  tasks:
+    - name: validation export from client side.
+      command: "showmount -e 192.168.48.138" 
+      register: exportoutput
+
+    - name: exportoutput
+      debug:
+         var: exportoutput.stdout_lines
+
+
+

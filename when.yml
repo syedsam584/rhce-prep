@@ -1,0 +1,19 @@
+---
+- name: when condition
+  hosts: all
+  vars:
+    packages: 
+       - name: httpd
+         required: true
+       - name: mysql
+         required: true
+       - name: apache
+         required: false 
+  
+  tasks: 
+    - name: install packages
+      yum: 
+        name: "{{ item.name }}"
+        state: absent 
+      when: item.required == true 
+      loop: "{{ packages }}"

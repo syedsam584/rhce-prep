@@ -1,0 +1,47 @@
+---
+- name: test template
+  hosts: web 
+  become: true
+  gather_facts: false 
+  vars: 
+    name01: Sohail  
+    name02: Syed
+  tasks: 
+  - name: install httpd
+    package:
+      name: httpd
+      state: present 
+    tags: 
+    - install
+  
+  - name: service start
+    service: 
+        name: httpd
+        state: restarted 
+        enabled: yes  
+        # notify:
+        #- check version of httpd
+
+  - name: testing tamplete
+    template:    
+      src: index.html
+      dest: /var/www/html/index.html
+    ignore_errors: true 
+    tags:
+    - testing
+  
+      # handlers:
+  - name: check version of httpd
+    shell: "rpm -qa httpd"
+    register: validate_output
+
+  - name: print the version.
+    debug: 
+      msg: "{{ validate_output.stdout }}" 
+   
+...
+
+
+
+
+

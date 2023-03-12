@@ -1,0 +1,26 @@
+---
+- name: list var in playbook
+  hosts: web
+  gather_facts: false
+  vars: 
+    father:
+        - son
+        - son1
+        - son2
+  tasks: 
+      - name: listing var0
+        debug:
+          msg: "who is the first one {{ father.0 }}"
+
+      - name: listing var1
+        debug:
+          msg: "who is the first one {{ father.1 }}"
+
+      - name:  listing var2
+        debug:
+           msg: "who is the first one {{ father.2 }}"
+
+
+
+     
+

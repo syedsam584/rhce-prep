@@ -1,0 +1,45 @@
+---
+- name: Create LVM volume
+  hosts: localhost
+  become: yes
+  gather_facts: yes
+  tasks:
+          #    - name: Create Physical Volume
+          #      command: pvcreate /dev/nvme0n2p1
+
+          #    - name: Create Volume Group
+          #      command: vgcreate myvg /dev/nvme0n2p1
+
+    - name: Create Logical Volume
+      shell: lvcreate -L 4G -n mylv myvg 
+      when: lvm_check.rc == 0
+
+    - name: Create Filesystem on Logical Volume
+      filesystem:
+        fstype: ext4
+        dev: /dev/myvg/mylv
+        state: present
+      when: lvm_check.rc == 0
+
+ #  - name: Format the Logical Volume
+ #    shell: mkfs.ext4 /dev/myvg/mylv
+ #       when: lvm_check.rc == 0       
+
+    - name: Create the directory
+      file:
+        path: /new/RHELFS
+        state: directory
+
+    - name: Create the file system
+      command: |
+        echo "/dev/myvg/mylv /new/RHELFS ext4 default 0 0" >> /etc/fstab
+
+    - name: Mount the file system
+      mount:
+        path: /new/RHELFS
+        src: /dev/myvg/mylv 
+        fstype: ext4
+        state: mounted
+
+
+

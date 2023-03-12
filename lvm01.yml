@@ -1,0 +1,27 @@
+---
+- name: creating LVM
+  hosts: web 
+  gather_facts: false
+  tasks: 
+#  - name: lvcreate
+#    lvol:
+#      vg: vgdata
+#      lv: datatwo 
+#      size: +50%FREE
+
+  - name: create filesystem
+    filesystem: 
+         fstype: ext4
+         dev: /dev/vgdata/datatwo
+
+  - name: mount logical volume
+    mount: 
+       name: /lvdata2
+       src: /dev/vgdata/datatwo
+       fstype: ext4
+       state: mounted 
+
+  - name: resize the files system
+    command: resize2fs /dev/vgdata/datatwo
+
+...
